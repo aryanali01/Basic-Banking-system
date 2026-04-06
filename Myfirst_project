@@ -1,0 +1,156 @@
+#include <stdio.h>
+#include <string.h>
+
+char accNo[12];
+char name[50];
+float balance;
+int isAccountCreated = 0;
+
+//Create Account Function
+void createAccount() {
+
+    while (1) {
+        printf("\nEnter 11-digit Account Number: ");
+        scanf("%s", accNo);
+
+        if (strlen(accNo) == 11) {
+            break;
+        } else {
+            printf("Invalid! Enter exactly 11 digits.\n");
+        }
+    }
+
+    printf("Enter Name: ");
+    scanf("%s", name);
+
+    //opening balance
+    while (1) {
+        printf("Enter Opening Balance (Minimum 500): ");
+        scanf("%f", &balance);
+
+        if (balance >= 500) {
+            break;
+        } else {
+            printf("Minimum balance should be 500!\n");
+        }
+    }
+
+    isAccountCreated = 1;
+    printf("Account Created Successfully!\n");
+}
+
+// Deposit Function
+void deposit() {
+    if (isAccountCreated == 0) {
+        printf("Create account first!\n");
+        return;
+    }
+
+    float amount;
+
+    while (1) {
+        printf("Enter amount to deposit (Min 100): ");
+        scanf("%f", &amount);
+
+        if (amount >= 100) {
+            break;
+        } else {
+            printf("Minimum deposit is 100!\n");
+        }
+    }
+
+    balance = balance + amount;
+    printf("Amount deposited successfully!\n");
+    printf("update balance : %.2f\n",balance);
+}
+// Withdraw Function
+void withdraw() {
+    if (isAccountCreated == 0) {
+        printf("Create account first!\n");
+        return;
+    }
+
+    float amount;
+
+    while (1) {
+        printf("Enter amount to withdraw: ");
+        scanf("%f", &amount);
+
+        if (amount <= balance) {
+            break;
+        } else {
+            printf("Insufficient balance!\n");
+        }
+    }
+
+    balance = balance - amount;
+    printf("Withdrawal successful!\n");
+    printf("update Balance : %2f\n", balance);
+}
+
+// Check Balance Function
+void checkBalance() {
+    if (isAccountCreated == 0) {
+        printf("Create account first!\n");
+        return;
+    }
+
+    printf("Current Balance: %.2f\n", balance);
+}
+
+//Display Account Details
+void displayDetails() {
+    if (isAccountCreated == 0) {
+        printf("Create account first!\n");
+        return;
+    }
+
+    printf("\nAccount Number: %s\n", accNo);
+    printf("Name: %s\n", name);
+    printf("Balance: %.2f\n", balance);
+}
+
+
+int main() {
+
+    int choice;
+
+    while (1) {
+
+        printf("\n===== BANK SYSTEM =====\n");
+        printf("1. Create Account\n");
+        printf("2. Deposit\n");
+        printf("3. Withdraw\n");
+        printf("4. Check Balance\n");
+        printf("5. Account Details\n");
+        printf("6. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            createAccount();
+        }
+        else if (choice == 2) {
+            deposit();
+        }
+        else if (choice == 3) {
+            withdraw();
+        }
+        else if (choice == 4) {
+            checkBalance();
+        }
+        else if (choice == 5) {
+            displayDetails();
+        }
+        else if (choice == 6) {
+            printf("Thank you!\n");
+            break;
+        }
+        else {
+            printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
